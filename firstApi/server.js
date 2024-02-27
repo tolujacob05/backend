@@ -9,6 +9,14 @@ const DB = process.env.DATABASE.replace(
   process.env.DATABASE_PASSWORD,
 );
 
+// MONGOOSE IS ALL ABOUT MODELS AND A MODEL IS LIKE A BLUEPRINT FOR CREATING DOCUMENTS
+/* TO PERFORM THE FOLLOWIN OPERATION
+1. create
+2. Update
+3. Delete
+4. Read,
+A MONGOOSE MODEL IS NEEDED. TO CREATE A MODEL, A SCHEMA IS ALSO NEEDED
+*/
 mongoose
   .connect(DB, {
     useNewUrlParser: true,

@@ -19,7 +19,7 @@ app.post('/', (req, res) => {
 */
 
 const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
+  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`),
 );
 
 app.get('/api/v1/tours', (req, res) => {
@@ -76,7 +76,7 @@ app.post('/api/v1/tours', (req, res) => {
           tour: newTour,
         },
       });
-    }
+    },
   );
 });
 
@@ -116,3 +116,25 @@ const port = 3000;
 app.listen(port, () => {
   console.log(`App running on ${port}...`);
 });
+
+// MIDDLEWARE
+exports.checkId = (req, res, next, val) => {
+  console.log(`Tour id is: ${val}`);
+  if (req.params.id * 1 > tours.length) {
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Invalid id',
+    });
+  }
+  next();
+};
+
+exports.checkBody = (req, res, next) => {
+  if (!req.body.name || !req.body.price) {
+    return res.status(400).json({
+      status: 'fail',
+      message: 'Please type in name or price',
+    });
+  }
+  next();
+};
